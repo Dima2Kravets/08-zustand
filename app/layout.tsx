@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: "Note Hub is a simple and intuitive app that helps you create, organize, and manage your notes efficiently.",
     images: [
       {
-        url: "https://github.com/goitacademy/react-notehub-styles/tree/hw-08",
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
         width: 1200,
         height: 630,
         alt: "Screenshot of Note Hub app interface"

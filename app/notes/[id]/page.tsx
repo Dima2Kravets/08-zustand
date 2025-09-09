@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props) {
       description,
       images: [
         {
-        url: "https://github.com/goitacademy/react-notehub-styles/tree/hw-08",
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
         width: 1200,
         height: 630,
         alt: "Screenshot of Note Hub app interface"

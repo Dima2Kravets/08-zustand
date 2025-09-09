@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description: "The page you are looking for does not exist. Check the URL or go back to the Note Hub homepage.",
     images: [
       {
-        url: "https://github.com/goitacademy/react-notehub-styles/tree/hw-08",
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
         width: 1200,
         height: 630,
         alt: "Note Hub - Page Not Found",
