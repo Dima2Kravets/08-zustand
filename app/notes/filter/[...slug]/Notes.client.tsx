@@ -26,7 +26,7 @@ export default function NoteClient({ tag }: NoteClientProps) {
     setSearchQuery(query);
   }, 300);
 
-  const { data } = useQuery({
+  const { data, isLoading  } = useQuery({
     queryKey: ["notes", page, searchQuery, normalizedTag],
     queryFn: () => fetchNotes(page, searchQuery, 12, "created", normalizedTag),
     placeholderData: keepPreviousData,
@@ -60,7 +60,17 @@ export default function NoteClient({ tag }: NoteClientProps) {
         )}
       </header>
 
-      {data && <NoteList notes={data.notes} />}
+       {isLoading && <p>Loading notes...</p>}
+
+      {!isLoading && data?.notes?.length === 0 && (
+        <p>
+          No notes found for this tag.
+        </p>
+      )}
+
+      {!isLoading && data && 
+        <NoteList notes={data.notes} />
+      }
     </div>
   );
 }

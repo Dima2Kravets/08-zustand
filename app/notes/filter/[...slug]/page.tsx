@@ -11,6 +11,33 @@ type Props = {
   searchParams: Promise<{ page?: string; search?: string }>;
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const tag = slug[0];
+
+  const title = `Notes tagged with "${tag}"`;
+  const description = `Explore all notes under the "${tag}" tag.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      images: [
+        {
+          url: "https://github.com/goitacademy/react-notehub-styles/tree/hw-08", 
+          width: 1200,
+          height: 630,
+          alt: `Notes tagged with "${tag}"`,
+        },
+      ],
+      url: `https://notehub.com/tags/${tag}`,
+    },
+  };
+}
+
 const App = async ({ params, searchParams }: Props) => {
   const { slug } = await params;
   const { page: pageParam, search: searchParam } = await searchParams;
