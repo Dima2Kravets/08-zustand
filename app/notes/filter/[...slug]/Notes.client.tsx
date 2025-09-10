@@ -33,7 +33,7 @@ export default function NoteClient({ tag }: NoteClientProps) {
   const totalPages = data?.totalPages || 0;
   
   const router = useRouter();
-  const handleClick = () => router.push('/notes/filter/create');
+  const handleClick = () => router.push('/notes/action/create');
 
   return (
     <div className={css.app}>
