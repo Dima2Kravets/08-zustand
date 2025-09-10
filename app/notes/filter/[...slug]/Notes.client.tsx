@@ -3,12 +3,11 @@ import css from "@/app/notes/filter/[...slug]/Notes.client.module.css";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import NoteList from "@/components/NoteList/NoteList";
 import { fetchNotes } from "@/lib/api";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import { useDebouncedCallback } from "use-debounce";
-import Modal from "@/components/Modal/Modal";
+import { useRouter } from 'next/navigation';
 
 type NoteClientProps = {
   tag?: string;
@@ -18,7 +17,6 @@ export default function NoteClient({ tag }: NoteClientProps) {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Якщо обрали "All" → не передаємо тег у бекенд
   const normalizedTag = tag === "All" ? undefined : tag;
 
   const debouncedSetSearchQuery = useDebouncedCallback((query: string) => {
@@ -33,11 +31,9 @@ export default function NoteClient({ tag }: NoteClientProps) {
   });
 
   const totalPages = data?.totalPages || 0;
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  
+  const router = useRouter();
+  const handleClick = () => router.push('/notes/filter/create');
 
   return (
     <div className={css.app}>
@@ -50,15 +46,9 @@ export default function NoteClient({ tag }: NoteClientProps) {
             onPageChange={setPage}
           />
         )}
-        <button className={css.button} onClick={openModal}>
-          Create note +
-        </button>
-        {isModalOpen && (
-          <Modal onClose={closeModal}>
-            <NoteForm onSuccess={closeModal} onCancel={closeModal} />
-          </Modal>
-        )}
-      </header>
+        <button className={css.button} onClick={handleClick}>Create note +</button>
+        
+       </header>
 
        {isLoading && <p>Loading notes...</p>}
 
