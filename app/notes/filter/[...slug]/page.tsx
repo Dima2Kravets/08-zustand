@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { fetchNotes } from "@/lib/api";
 import {
   QueryClient,
@@ -11,7 +12,7 @@ type Props = {
   searchParams: Promise<{ page?: string; search?: string }>;
 };
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tag = slug[0];
 

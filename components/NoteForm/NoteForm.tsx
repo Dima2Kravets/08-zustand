@@ -2,7 +2,7 @@
 import css from "@/components/NoteForm/NoteForm.module.css"
 import { useId } from "react";
 import { createNote } from "@/lib/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from 'next/navigation';
 import { NewNoteData } from "@/types/note";
 import { useNoteDraftStore } from '@/lib/store/noteStore';
@@ -10,6 +10,7 @@ import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 export default function NoteForm() {
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
+  const queryClient = useQueryClient();
   const handleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -27,6 +28,7 @@ export default function NoteForm() {
     mutationFn: createNote,
     onSuccess: () => {
       clearDraft();
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
       router.push('/notes/filter/All');
     },
   });
